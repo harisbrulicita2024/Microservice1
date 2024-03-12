@@ -2,14 +2,18 @@ package harisbrulicita2024.microservice1.service;
 
 import harisbrulicita2024.microservice1.dao.JobRepository;
 import harisbrulicita2024.microservice1.model.Job;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class JobServiceImpl implements JobService {
+
+    private static final Logger logger = LoggerFactory.getLogger(JobServiceImpl.class);
 
     private final JobRepository jobRepository;
 
@@ -20,7 +24,13 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Job saveJob(Job job) {
-        return jobRepository.save(job);
+        logger.info("Saving job: {}", job.toString());
+        try {
+            return jobRepository.save(job);
+        } catch (Exception e) {
+            logger.error("Error saving job", e);
+            throw e;
+        }
     }
 
     @Override
