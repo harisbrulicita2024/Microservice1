@@ -42,4 +42,9 @@ public class JobServiceImpl implements JobService {
     public void deleteById(Integer id) {
         jobRepository.deleteById(id);
     }
+
+    @Override
+    public List<Job> findByCity(String city) {
+        return jobRepository.findByCity(city);
+    }
 }

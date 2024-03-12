@@ -10,4 +10,5 @@ public interface JobService {
     List<Job> findAll();
     Job updateJob(Job job);
     void deleteById(Integer id);
+    List<Job> findByCity(String city);
 }

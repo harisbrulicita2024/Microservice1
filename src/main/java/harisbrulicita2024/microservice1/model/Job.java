@@ -10,7 +10,7 @@ public class Job {
     Integer id;
     String job;
     String company;
-    String place;
+    String city; // Promijenjeno ime varijable place u city
     String category;
     Integer pay;
     String workinghours;
@@ -18,13 +18,14 @@ public class Job {
     Boolean remote;
     String country;
 
+
     public Job() {}
 
-    public Job(Integer id, String job, String company, String place, String category, Integer pay, String workinghours, Boolean office, Boolean remote, String country) {
+    public Job(Integer id, String job, String company, String city, String category, Integer pay, String workinghours, Boolean office, Boolean remote, String country) {
         this.id = id;
         this.job = job;
         this.company = company;
-        this.place = place;
+        this.city = city; // Promijenjeno ime varijable place u city
         this.category = category;
         this.pay = pay;
         this.workinghours = workinghours;
@@ -59,12 +60,12 @@ public class Job {
         this.company = company;
     }
 
-    public String getPlace() {
-        return place;
+    public String getCity() {
+        return city; // Promijenjeno ime metode getPlace u getCity
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setCity(String city) {
+        this.city = city; // Promijenjeno ime metode setPlace u setCity
     }
 
     public String getCategory() {
@@ -83,12 +84,12 @@ public class Job {
         this.pay = pay;
     }
 
-    public String getworkinghours() {
-        return workinghours;
+    public String getWorkinghours() {
+        return workinghours; // Promijenjeno ime metode getworkinghours u getWorkinghours
     }
 
     public void setWorkinghours(String workinghours) {
-        this.workinghours = workinghours;
+        this.workinghours = workinghours; // Promijenjeno ime metode setworkinghours u setWorkinghours
     }
 
     public Boolean getOffice() {
@@ -113,4 +114,5 @@ public class Job {
 
     public void setCountry(String country) {
         this.country = country;
-    }}
+    }
+}
