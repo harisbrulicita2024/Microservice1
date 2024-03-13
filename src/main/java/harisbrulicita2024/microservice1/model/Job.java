@@ -115,4 +115,11 @@ public class Job {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public void setName(String softwareDeveloper) {
+    }
+
+    public Object getName() {
+        return null;
+    }
 }
