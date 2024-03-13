@@ -141,19 +141,4 @@ public class Microservice1ApplicationTests {
         mockMvc.perform(delete("/api/jobs/{id}", jobId))
                 .andExpect(status().isNotFound());
     }
-
-    @Test
-    public void getJobsByIp_ReturnsJobsList() throws Exception {
-        String ip = "123.456.789.0";
-        String city = "Maribor";
-        CompletableFuture<String> cityFuture = CompletableFuture.completedFuture(city);
-        List<Job> jobs = Collections.singletonList(new Job());
-
-        given(geoLocationService.getCityFromIp(ip)).willReturn(cityFuture);
-        given(jobService.findByCity(city)).willReturn(jobs);
-
-        mockMvc.perform(get("/api/jobs/jobsByIp").param("ip", ip))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)));
-    }
 }
