@@ -2,7 +2,7 @@ FROM openjdk:21-rc-jdk-slim
 
 WORKDIR /app
 
-COPY build/libs/micro2notfinal-1.0-SNAPSHOT.jar /app/app.jar
+COPY target/Microservice1-0.0.1-SNAPSHOT.jar /app/app.jar
 
 EXPOSE 8080
 
