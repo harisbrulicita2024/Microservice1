@@ -11,4 +11,6 @@ public interface JobService {
     Job updateJob(Job job);
     void deleteById(Integer id);
     List<Job> findByCity(String city);
+
+    void save(Job job);
 }

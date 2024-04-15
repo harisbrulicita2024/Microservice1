@@ -2,15 +2,16 @@ package harisbrulicita2024.microservice1.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.io.Serializable;
 
 @Document(collection = "Jobs")
-public class Job {
+public class Job implements Serializable {
 
     @Id
-    Integer id;
+    private Integer id;
     String job;
     String company;
-    String city; // Promijenjeno ime varijable place u city
+    String city;
     String category;
     Integer pay;
     String workinghours;

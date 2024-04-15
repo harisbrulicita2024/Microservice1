@@ -57,4 +57,9 @@ public class JobServiceImpl implements JobService {
     public List<Job> findByCity(String city) {
         return jobRepository.findByCity(city);
     }
+
+    @Override
+    public void save(Job job) {
+        jobRepository.save(job);
+    }
 }

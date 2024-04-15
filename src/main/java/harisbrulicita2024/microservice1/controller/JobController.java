@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,8 +34,16 @@ public class JobController {
         this.jobService = jobService;
         this.geoLocationService = geoLocationService;
         logger.info("Ready");
+
     }
 
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    private void sendJobToQueue(Job job) {
+        jmsTemplate.convertAndSend("jobQueue", job);
+        logger.info("Sent job to ActiveMQ queue: {}", job);
+    }
     @GetMapping
     public List<Job> getAllJobs() {
         logger.info("Getting all jobs");
@@ -51,8 +60,16 @@ public class JobController {
 
     @PostMapping
     public Job createJob(@RequestBody Job job) {
-        logger.info("Creating job: {}", job);
-        return jobService.saveJob(job);
+        logger.info("Creating job: {}", job.toString());
+        jobService.saveJob(job);
+        sendJobToQueue(job);
+
+        try {
+            return jobService.saveJob(job);
+        } catch(Exception ex) {
+            logger.error("Error saving job to database: {}", ex.getMessage());
+            throw ex;
+        }
     }
 
     @PutMapping("/{id}")
