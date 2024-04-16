@@ -1,42 +1,47 @@
 package harisbrulicita2024.microservice1.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import java.io.Serializable;
 
-@Document(collection = "Jobs")
+@Entity
+@Table(name = "jobs", schema = "jobs")
 public class Job implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "jobs_id")
     private Integer id;
+
+    @Column(name = "name")
     String job;
+
+    @Column(name = "company")
     String company;
+
+    @Column(name = "city")
     String city;
-    String category;
-    Integer pay;
-    String workinghours;
-    Boolean office;
-    Boolean remote;
+
+    @Column(name = "country")
     String country;
 
+    @Column(name = "category")
+    String category;
+
+    @Column(name = "pay")
+    Integer pay;
+
+    @Column(name = "workinghours")
+    String workinghours;
+
+    @Column(name = "office")
+    Boolean office;
+
+    @Column(name = "remote")
+    Boolean remote;
 
     public Job() {}
 
-    public Job(Integer id, String job, String company, String city, String category, Integer pay, String workinghours, Boolean office, Boolean remote, String country) {
-        this.id = id;
-        this.job = job;
-        this.company = company;
-        this.city = city; // Promijenjeno ime varijable place u city
-        this.category = category;
-        this.pay = pay;
-        this.workinghours = workinghours;
-        this.office = office;
-        this.remote = remote;
-        this.country = country;
-    }
-
-    // Getters i Setters
-    // Primer:
     public Integer getId() {
         return id;
     }
@@ -62,11 +67,19 @@ public class Job implements Serializable {
     }
 
     public String getCity() {
-        return city; // Promijenjeno ime metode getPlace u getCity
+        return city;
     }
 
     public void setCity(String city) {
-        this.city = city; // Promijenjeno ime metode setPlace u setCity
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getCategory() {
@@ -86,11 +99,11 @@ public class Job implements Serializable {
     }
 
     public String getWorkinghours() {
-        return workinghours; // Promijenjeno ime metode getworkinghours u getWorkinghours
+        return workinghours;
     }
 
     public void setWorkinghours(String workinghours) {
-        this.workinghours = workinghours; // Promijenjeno ime metode setworkinghours u setWorkinghours
+        this.workinghours = workinghours;
     }
 
     public Boolean getOffice() {
@@ -107,20 +120,5 @@ public class Job implements Serializable {
 
     public void setRemote(Boolean remote) {
         this.remote = remote;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setName(String softwareDeveloper) {
-    }
-
-    public Object getName() {
-        return null;
     }
 }

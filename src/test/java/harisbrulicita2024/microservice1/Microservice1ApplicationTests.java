@@ -44,7 +44,7 @@ public class Microservice1ApplicationTests {
     public void getAllJobs_ReturnsJobsList() throws Exception {
         Job job = new Job();
         job.setId(1);
-        job.setName("Software Developer");
+        job.setJob("Senior Java Developer");
         List<Job> allJobs = Arrays.asList(job);
 
         given(jobService.findAll()).willReturn(allJobs);
@@ -52,7 +52,7 @@ public class Microservice1ApplicationTests {
         mockMvc.perform(get("/api/jobs"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", is(job.getName())));
+                .andExpect(jsonPath("$[0].job", is(job.getJob())));
     }
 
     @Test
@@ -60,13 +60,13 @@ public class Microservice1ApplicationTests {
         int jobId = 1;
         Job job = new Job();
         job.setId(jobId);
-        job.setName("Software Developer");
+        job.setJob("Senior Java Developer");
 
         given(jobService.findById(jobId)).willReturn(Optional.of(job));
 
         mockMvc.perform(get("/api/jobs/{id}", jobId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(job.getName())));
+                .andExpect(jsonPath("$.job", is(job.getJob())));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class Microservice1ApplicationTests {
     @Test
     public void createJob_ReturnsSavedJob() throws Exception {
         Job job = new Job();
-        job.setName("Software Developer");
+        job.setJob("Software Developer");
 
         given(jobService.saveJob(any(Job.class))).willReturn(job);
 
@@ -89,7 +89,7 @@ public class Microservice1ApplicationTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(job)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(job.getName())));
+                .andExpect(jsonPath("$.job", is(job.getJob())));
     }
 
     @Test
@@ -97,11 +97,11 @@ public class Microservice1ApplicationTests {
         int jobId = 1;
         Job existingJob = new Job();
         existingJob.setId(jobId);
-        existingJob.setName("Software Developer");
+        existingJob.setJob("Software Developer");
 
         Job updatedJob = new Job();
         updatedJob.setId(jobId);
-        updatedJob.setName("Senior Developer");
+        updatedJob.setJob("Senior Developer");
 
         given(jobService.findById(jobId)).willReturn(Optional.of(existingJob));
         given(jobService.updateJob(any(Job.class))).willReturn(updatedJob);
@@ -110,7 +110,7 @@ public class Microservice1ApplicationTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(updatedJob)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(updatedJob.getName())));
+                .andExpect(jsonPath("$.job", is(updatedJob.getJob())));
     }
 
     @Test
@@ -118,7 +118,7 @@ public class Microservice1ApplicationTests {
         int jobId = 1;
         Job updatedJob = new Job();
         updatedJob.setId(jobId);
-        updatedJob.setName("Senior Developer");
+        updatedJob.setJob("Senior Developer");
 
         given(jobService.findById(jobId)).willReturn(Optional.empty());
 
