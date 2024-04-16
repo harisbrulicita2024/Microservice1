@@ -2,6 +2,8 @@ package harisbrulicita2024.microservice1.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
+import harisbrulicita2024.microservice1.model.Job;
+import harisbrulicita2024.microservice1.dao.JobRepository;
 import java.io.Serializable;
 
 @Entity

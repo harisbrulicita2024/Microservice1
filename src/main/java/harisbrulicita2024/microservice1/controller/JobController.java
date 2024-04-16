@@ -1,11 +1,13 @@
 package harisbrulicita2024.microservice1.controller;
 
+import harisbrulicita2024.microservice1.dao.JobRepository;
 import harisbrulicita2024.microservice1.model.Job;
 import harisbrulicita2024.microservice1.service.GeoLocationService;
 import harisbrulicita2024.microservice1.service.JobService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
@@ -36,9 +38,9 @@ public class JobController {
         logger.info("Ready");
 
     }
-
     @Autowired
     private JmsTemplate jmsTemplate;
+    public JobRepository jobRepository;
 
     private void sendJobToQueue(Job job) {
         jmsTemplate.convertAndSend("jobQueue", job);
