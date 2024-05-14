@@ -11,9 +11,8 @@ services:
       POSTGRES_PASSWORD: haris123
     ports:
       - "5432:5432"
-    expose:
-      - "5432"
-
+    networks:
+      - backend
 
   microservice1:
     build:
@@ -25,12 +24,14 @@ services:
     ports:
       - "9000:9000"
     networks:
+      - backend
       - activemq
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/recipe
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/jobsportal
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=haris123
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
 
   activemq:
     image: rmohr/activemq:5.10.0
@@ -44,4 +45,6 @@ services:
 
 networks:
   activemq:
+    driver: bridge
+  backend:
     driver: bridge
